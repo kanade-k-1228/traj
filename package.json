@@ -1,5 +1,5 @@
 {
-  "name": "react-todo-template",
+  "name": "trajectory-simulator",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "deploy": "pnpm build && gh-pages -d dist",
     "fmt": "biome format --write .",
     "lint": "biome lint .",
     "check": "biome check .",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "autoprefixer": "^10.4.21",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
