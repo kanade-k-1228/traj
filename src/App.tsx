@@ -36,23 +36,13 @@ export const App = () => {
   const activeInputs = new Set(method?.inputs || []);
 
   return (
-    <div className="min-h-screen bg-gray-950 p-2">
-      <div className="max-w-[1800px] mx-auto">
+    <div className="h-screen bg-gray-950 flex flex-col overflow-hidden">
+      <div className="max-w-[1800px] mx-auto w-full flex flex-col h-full">
         {/* Header */}
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-2 mb-2">
+        <div className="bg-gray-900 border-b border-gray-800 p-2 flex-shrink-0">
           <div className="flex items-center justify-between gap-4">
-            {/* Left: Title */}
-            <div className="flex items-center gap-2 min-w-[200px]">
-              <Car size={24} className="text-purple-400" />
-              <div>
-                <h1 className="text-lg font-bold text-gray-100">
-                  Trajectory Simulator
-                </h1>
-              </div>
-            </div>
-
-            {/* Center: Calculation Mode Selection */}
-            <div className="flex items-center gap-2 flex-1 justify-center">
+            {/* Left: Calculation Mode Selection */}
+            <div className="flex items-center gap-2 flex-1">
               {Object.entries(METHODS).map(([modeId, mode]) => (
                 <button
                   key={modeId}
@@ -79,8 +69,18 @@ export const App = () => {
               ))}
             </div>
 
+            {/* Center: Title */}
+            <div className="flex items-center gap-2 justify-center">
+              <Car size={24} className="text-purple-400" />
+              <div>
+                <h1 className="text-lg font-bold text-gray-100">
+                  Trajectory Simulator
+                </h1>
+              </div>
+            </div>
+
             {/* Right: Action Buttons */}
-            <div className="flex items-center gap-2 min-w-[280px] justify-end">
+            <div className="flex items-center gap-2 flex-1 justify-end">
               <button
                 type="button"
                 onClick={handleInitialize}
@@ -111,7 +111,7 @@ export const App = () => {
               <button
                 type="button"
                 onClick={handleExport}
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium py-1.5 px-2.5 rounded-lg transition-all flex items-center gap-1.5 shadow-md text-xs"
+                className="bg-purple-600 hover:bg-purple-700 text-white border border-purple-500 font-medium py-1.5 px-2.5 rounded-lg transition-colors flex items-center gap-1.5 text-xs"
                 title="Export trajectory data to JSON"
               >
                 <Download size={14} />
@@ -122,13 +122,13 @@ export const App = () => {
         </div>
 
         {/* Main Content - 3 Column Layout */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-px flex-1 min-h-0 bg-gray-800">
           {/* Left Column - Editable Trajectory Data */}
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-3 shadow-xl">
-            <h2 className="text-md font-semibold text-gray-100 mb-2 flex items-center gap-2">
+          <div className="bg-gray-950 flex flex-col min-h-0">
+            <h2 className="text-md font-semibold text-gray-100 p-3 pb-2 flex items-center gap-2 flex-shrink-0">
               📊 Input
             </h2>
-            <div className="space-y-2">
+            <div className="space-y-2 overflow-y-auto px-3 pb-3">
               {Object.entries(INPUT_GRAPH).map(([id, config]) => (
                 <Graph
                   key={id}
@@ -142,16 +142,16 @@ export const App = () => {
           </div>
 
           {/* Middle Column - Trajectory Plot */}
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-3 shadow-xl">
-            <h2 className="text-md font-semibold text-gray-100 mb-2 flex items-center gap-2">
+          <div className="bg-gray-950 flex flex-col min-h-0">
+            <h2 className="text-md font-semibold text-gray-100 p-3 pb-2 flex items-center gap-2 flex-shrink-0">
               🗺️ Plot
             </h2>
-            <div className="h-[calc(100vh-180px)] min-h-[400px]">
+            <div className="flex-1 px-3 min-h-0">
               <TrajectoryPlot />
             </div>
 
             {/* Legend */}
-            <div className="flex items-center justify-center gap-4 text-xs mt-2">
+            <div className="flex items-center justify-center gap-4 text-xs p-3 pt-2 flex-shrink-0">
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span className="text-gray-400">開始点</span>
@@ -164,14 +164,48 @@ export const App = () => {
           </div>
 
           {/* Right Column - Output Data */}
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-3 shadow-xl">
-            <h2 className="text-md font-semibold text-gray-100 mb-2 flex items-center gap-2">
+          <div className="bg-gray-950 flex flex-col min-h-0">
+            <h2 className="text-md font-semibold text-gray-100 p-3 pb-2 flex items-center gap-2 flex-shrink-0">
               📈 Output
             </h2>
-            <div className="space-y-2">
+            <div className="space-y-2 overflow-y-auto px-3 pb-3">
               {Object.entries(OUTPUT_GRAPH).map(([id, config]) => (
                 <Graph key={id} id={id as OutputKeys} config={config} />
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer - Legend */}
+        <div className="bg-gray-900 border-t border-gray-800 p-2 flex-shrink-0">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-400">
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">P:</span>
+              <span>Position</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">O:</span>
+              <span>Orientation</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">V:</span>
+              <span>Velocity</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">W:</span>
+              <span>Orientation Rate</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">A:</span>
+              <span>Acceleration</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">C:</span>
+              <span>Curvature</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-gray-300">L1:</span>
+              <span>L1 Loss</span>
             </div>
           </div>
         </div>
