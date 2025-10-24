@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import type React from "react";
 import { type FC, useCallback, useEffect, useRef, useState } from "react";
@@ -309,28 +310,28 @@ export const Graph: FC<{
 
   return (
     <div
-      className={`${
+      className={clsx(
+        "border rounded-lg overflow-hidden flex items-center",
         isActive
           ? "bg-blue-900/30 border-blue-700"
-          : "bg-gray-800 border-gray-700"
-      } border rounded-lg p-2 shadow-sm`}
+          : "bg-gray-800 border-gray-700",
+      )}
     >
-      <div className="flex items-center gap-2">
-        <div className="flex flex-col items-center justify-center min-w-10">
-          <h3 className="text-sm font-medium text-gray-300">{config.label}</h3>
-          <span className="text-xs text-gray-400">[{config.unit}]</span>
-        </div>
-        <canvas
-          ref={canvasRef}
-          className={`flex-1 h-24 border border-gray-700 rounded bg-gray-900 ${
-            isActive && isEditable ? "cursor-crosshair" : ""
-          }`}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        />
+      <div className="flex flex-col items-center justify-center min-w-10">
+        <h3 className="text-sm font-medium text-gray-300">{config.label}</h3>
+        <span className="text-xs text-gray-400">[{config.unit}]</span>
       </div>
+      <canvas
+        ref={canvasRef}
+        className={clsx(
+          "flex-1 h-32 bg-gray-900",
+          isActive && isEditable && "cursor-crosshair",
+        )}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      />
     </div>
   );
 };

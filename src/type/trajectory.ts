@@ -127,25 +127,25 @@ export interface MethodConfig {
 export const METHODS: Record<Methods, MethodConfig> = {
   position: {
     inputs: ["px", "py"],
-    name: "位置",
+    name: "Position",
     description: "位置から微分で速度を計算し、方位角は接線から算出",
     color: "#3b82f6",
   },
   velocity: {
     inputs: ["vx", "vy"],
-    name: "速度",
+    name: "Velocity",
     description: "速度から積分で位置を計算し、方位角は接線から算出",
     color: "#10b981",
   },
   integral: {
     inputs: ["vx", "wz"],
-    name: "積分",
+    name: "Integral",
     description: "X方向速度とヨーレートから積分で位置と方位角を計算",
     color: "#f59e0b",
   },
   differential: {
     inputs: ["px", "oz"],
-    name: "微分",
+    name: "Differential",
     description: "位置と方位角から微分で速度を計算",
     color: "#8b5cf6",
   },
