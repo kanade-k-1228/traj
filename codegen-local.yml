@@ -1,0 +1,18 @@
+overwrite: true
+schema: "../file/schema.graphql" # ローカルのスキーマファイルを使用
+documents:
+  - "src/**/*.{ts,tsx}"
+  - "!src/generated/**/*"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-urql
+    config:
+      withHooks: false
+      withComponent: false
+      urqlImportFrom: urql
+      scalars:
+        DateTime: string
+        JSON: any
