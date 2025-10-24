@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <script>
+      sessionStorage.redirect = location.href;
+      const projectPages = true;
+      const l = window.location;
+      const repo = projectPages ? "/" + l.pathname.split("/")[1] : "";
+      l.replace(l.protocol + "//" + l.hostname + (l.port ? ":" + l.port : "") + repo);
+    </script>
+  </head>
+</html>

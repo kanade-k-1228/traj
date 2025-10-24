@@ -1,0 +1,20 @@
+{
+  "jsc": {
+    "experimental": {
+      "plugins": [
+        ["@swc-jotai/debug-label", {}],
+        ["@swc-jotai/react-refresh", {}],
+        ["@swc/react-compiler", {}]
+      ]
+    },
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic"
+      }
+    }
+  }
+}
